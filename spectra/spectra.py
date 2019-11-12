@@ -2,6 +2,7 @@ from scipy import signal as sg
 from scipy import optimize as opt
 from astropy.io import fits
 import numpy as np
+import os
 
 # IO functions for fits files
 
@@ -40,7 +41,7 @@ def limit_spec(data, lambda_min, lambda_max):
     flux = data2[(data1>lambda_min)&(data1<lambda_max)]
     return wl, flux
 
-def gauss(x, a, b, c, d):
+def gauss(x, a, b, c,d):
     """Returns numpy array
 
     Gaussian generator.
@@ -53,17 +54,29 @@ def W_gauss(a, b, c, d):
 
     Calculates equivalent width of line W_lambda from analytical formula (gaussian approximation).
     """
-    return np.sqrt(2 * np.pi) * a * c / d
+    return np.absolute(np.sqrt(2 * np.pi) * a * c / d)
 
 
-def ajust_gauss(data, params0=[-1, 1, .1, 1]):
+def ajust_gauss(data):
     """Returns list
-)
+
     Takes spectra data, minimum and maximum wavelengths and returns parameters of gaussian fit
     """
-    params0[1] = data[0][data[1].argmin()]
-    popt, pcov = opt.curve_fit(gauss, *data, params0)
-    return popt
+    params0=[-1, data[0][data[1].argmin()], .1, 1]
+    popt, r = (0, 0, 0, 0), 0
+    while r < .9 and params0[2] > 0:
+        print("iteration")
+        try:
+            popt, pcov = opt.curve_fit(gauss, *data, params0)
+            y = gauss(data[0], *popt)
+            s = (data[1] - y)**2/data[1]
+            r = 1 - s.sum()
+            params0[2] -= .02
+        except RuntimeError:
+            print("Error")
+            break
+    return popt, r
+
 
 
 def get_W(data):
@@ -71,12 +84,13 @@ def get_W(data):
 
     Takes spectra data, minimum and maximum wavelengths of line limit and return equivalent width W_lambda.
     """
-    ps = ajust_gauss(data)
+    ps, r = ajust_gauss(data)
+    print("r = ",r)
     return W_gauss(*ps)
 
 
 
-def get_temp_estimate(data, EP1, EP2, wls1, wls2, lgf1, lgf2, k=.2, N = 1000):
+def get_temp_estimate(data, EP1, EP2, wls1, wls2, lgf1, lgf2, k=.4, N = 1000):
     """Returns float
 
     Takes observed spectra data, EP ranges, corresponding wavelength and log(gf) lists and estimates temperature.
@@ -99,4 +113,20 @@ def get_temp_estimate(data, EP1, EP2, wls1, wls2, lgf1, lgf2, k=.2, N = 1000):
     ys= np.array([ymin, ymax])
     d = np.absolute(np.mean((ys * (p2[0] - p1[0]) + p1[0]*p2[1] - p1[1]*p2[0]) / p1[0] / p2[0]))
     return np.absolute(5040 * (np.mean(EP2) - np.mean(EP1))) / d
+
+
+
+def get_temp_range(T, delta_T=400):
+    Ts = np.arange(4000, 7250, 250)
+    return Ts[(Ts > T - delta_T) & ( Ts < T + delta_T)]
+
+
+def read_library(library_path, Ts, logg_min = 3.5):
+    data = []
+    for file in os.listdir(library_path):
+        for T in Ts:
+            if file.startswith("p{}".format(T)):
+                data.append(file)
+    return data
+
 
