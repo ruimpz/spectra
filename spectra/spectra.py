@@ -64,12 +64,11 @@ def ajust_gauss(data):
     """
     params0=[-1, data[0][data[1].argmin()], .1, 1]
     popt, r = (0, 0, 0, 0), 0
-    while r < .9 and params0[2] > 0:
-        print("iteration")
+    while r < .8 and params0[2] > 0:
         try:
             popt, pcov = opt.curve_fit(gauss, *data, params0)
             y = gauss(data[0], *popt)
-            s = (data[1] - y)**2/data[1]
+            s = (1 - y/data[1])**2
             r = 1 - s.sum()
             params0[2] -= .02
         except RuntimeError:
@@ -85,7 +84,6 @@ def get_W(data):
     Takes spectra data, minimum and maximum wavelengths of line limit and return equivalent width W_lambda.
     """
     ps, r = ajust_gauss(data)
-    print("r = ",r)
     return W_gauss(*ps)
 
 
@@ -117,11 +115,19 @@ def get_temp_estimate(data, EP1, EP2, wls1, wls2, lgf1, lgf2, k=.4, N = 1000):
 
 
 def get_temp_range(T, delta_T=400):
+    """Returns array
+
+    Takes a temperature estimate and generates list of possible temperature values within an error detla_T to look up on the database.
+    """
     Ts = np.arange(4000, 7250, 250)
     return Ts[(Ts > T - delta_T) & ( Ts < T + delta_T)]
 
 
 def read_library(library_path, Ts, logg_min = 3.5):
+    """Returns list
+
+    Takes library path and returns possible spectra to analyze in a temperature range.
+    """
     data = []
     for file in os.listdir(library_path):
         for T in Ts:
