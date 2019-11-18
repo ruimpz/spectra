@@ -42,12 +42,42 @@ def limit_spec(data, lambda_min, lambda_max):
     flux = data2[(data1>lambda_min)&(data1<lambda_max)]
     return np.array([wl, flux])
 
-def gauss(x, a, b, c,d):
+def gauss(x, a, b, c, d):
     """Returns numpy array
 
     Gaussian generator.
     """
     return a*np.exp( - (x - b)**2 / 2 / c**2 ) + d
+
+
+def get_exp_params(wl, R):
+    wl_med = (wl[0] + wl[-1]) / 2
+    dl = wl_med / R
+    return dl / (2 * np.sqrt(2 * np.log(2)))
+
+
+def get_conv_gauss(wl, R):
+    c = get_exp_params(wl, R)
+    dx = wl[1] - wl[0]
+    x = np.arange(-5*c, 5*c + dx, dx)
+    y = gauss(x, 1, 0, c, 0)
+    return y / y.sum()
+
+
+def conv(data, g):
+    data[1] =  sg.convolve(data[1], g, mode="same")
+    return data
+
+
+def interp(obs_data, synt_data):
+    return np.interp(obs_data[0], synt_data[0], synt_data[1])
+
+
+def process_synt(obs_data, synt_data, R):
+    x = np.copy(synt_data)
+    g = get_conv_gauss(x[0], R)
+    x = conv(x, g)
+    return np.array([obs_data[0], interp(obs_data, x)])
 
 
 def W_gauss(a, b, c, d):
@@ -63,7 +93,7 @@ def ajust_gauss(data):
 
     Takes spectra data, minimum and maximum wavelengths and returns parameters of gaussian fit
     """
-    params0=[-1, data[0][data[1].argmin()], .1, data[0][data[1].argmax()]]
+    params0=[-1, data[0][data[1].argmin()], .1, data[1][0]]
     popt, r = (0, 0, 0, 0), 0
     while r < .9 and params0[2] > 0:
         try:
@@ -73,8 +103,8 @@ def ajust_gauss(data):
             r = 1 - s.sum()
             params0[2] -= .02
         except RuntimeError:
-            print("Error")
-            break
+            print("Runtime Error. Line ignored.")
+            params0[2] -= .02
     return popt, r
 
 
@@ -88,18 +118,20 @@ def get_W(data, r_tol = .994):
     if r > r_tol:
         return W_gauss(*ps), ps, r
     else:
-        return 0, 0, 0
+        print("Bad line fit -> ignored")
+        return 1e10, 0, 0
+
 
 def get_line_Ws(data, ws, k = .2, get_inds = False, get_zeros=False):
     W = np.zeros(len(ws))
     for i, wl in enumerate(ws):
         line = limit_spec(data, wl-k, wl+k)
         W[i], p, r = get_W(line)
+# Uncomment to plot line and gaussian fit as each is calculated. May take some time.
 #        if r > .98:
-#            print(r)
-#           plt.plot(line[0], line[1])
-#            plt.plot(line[0], gauss(line[0], *p))
-#            plt.show()
+#        plt.plot(line[0], line[1])
+#       plt.plot(line[0], gauss(line[0], *p))
+#       plt.show()
     inds = np.where(W != 0)
     if get_zeros:
         return W
@@ -113,7 +145,6 @@ def get_temp_estimate(data, EP1, EP2, wls1, wls2, lgf1, lgf2):
     """Returns float
 
     Takes observed spectra data, EP ranges, corresponding wavelength and log(gf) lists and estimates temperature.
-    Takes optional parameters k and N for line width estimation and number of points in linear regression, respectively.
     """
     wls1, W1, inds1 = get_line_Ws(data, wls1, get_inds=True)
     wls2, W2, inds2 = get_line_Ws(data, wls2, get_inds=True)
@@ -132,7 +163,6 @@ def get_temp_estimate(data, EP1, EP2, wls1, wls2, lgf1, lgf2):
     ys= np.array([ymin, ymax])
     d = np.absolute(np.mean((ys * (p2[0] - p1[0]) + p1[0]*p2[1] - p1[1]*p2[0]) / p1[0] / p2[0]))
     return np.absolute(5040 * (np.mean(EP2) - np.mean(EP1))) / d
-
 
 
 def get_temp_range(T, delta_T=400):
@@ -156,7 +186,7 @@ def read_library(library_path, Ts, logg_min = 3.5):
 
 def get_spec_fit(library, wl_obs, W_obs, \
                  library_path="../library/GES_UVESRed580_deltaAlphaFe+0.0_fits/", \
-                 lambda_file="../imagens_teste/GES_UVESRed580_Lambda.fits"):
+                 lambda_file="../imagens_teste/GES_UVESRed580_Lambda.fits", k = .2):
     """Returns string.
 
     Compares equivalent width of lines of observed spectra with database of synthetic spectra and returns name of best fitting synthetic spectra.
@@ -164,8 +194,8 @@ def get_spec_fit(library, wl_obs, W_obs, \
     diffs = np.zeros(len(library))
     for i, synt_spec in enumerate(library):
         synt_data = np.array(read_sintfile(lambda_file, library_path + synt_spec))
-        W_synt = get_line_Ws(synt_data, wl_obs, get_zeros=True)
-        diff = (W_obs*1000 - W_synt*1000)**2
+        W_synt = get_line_Ws(synt_data, wl_obs, get_zeros=True, k = k)
+        diff = (W_obs- W_synt)**2
         diffs[i] = diff.sum()
     return library[np.argmin(diffs)]
 
