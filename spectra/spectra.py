@@ -51,12 +51,20 @@ def gauss(x, a, b, c, d):
 
 
 def get_exp_params(wl, R):
+    """Returns float.
+
+    Takes wavelength array from synthetic spectra and returns parameters for simulating experimental resolution on said spectra
+    """
     wl_med = (wl[0] + wl[-1]) / 2
     dl = wl_med / R
     return dl / (2 * np.sqrt(2 * np.log(2)))
 
 
 def get_conv_gauss(wl, R):
+    """Returns array.
+
+    Takes wavelength array from synthetic spectra and returns gaussian for convolution.
+    """
     c = get_exp_params(wl, R)
     dx = wl[1] - wl[0]
     x = np.arange(-5*c, 5*c + dx, dx)
@@ -65,15 +73,27 @@ def get_conv_gauss(wl, R):
 
 
 def conv(data, g):
+    """Returns array.
+
+    Takes synthetic spectra and returns the result of it's convolution with function g.
+    """
     data[1] =  sg.convolve(data[1], g, mode="same")
     return data
 
 
 def interp(obs_data, synt_data):
+    """Returns array.
+
+    Takes observed and synthetic spectra and returns flux of synthetic spectra interpolated with observed data.
+    """
     return np.interp(obs_data[0], synt_data[0], synt_data[1])
 
 
 def process_synt(obs_data, synt_data, R):
+    """Returns array.
+
+    Takes observed and synthetic spectra and returns synthetic spectra after application of convolution with gaussian and interpolation with observed spectra data.
+    """
     x = np.copy(synt_data)
     g = get_conv_gauss(x[0], R)
     x = conv(x, g)
@@ -88,12 +108,12 @@ def W_gauss(a, b, c, d):
     return np.absolute(np.sqrt(2 * np.pi) * a * c / d)
 
 
-def ajust_gauss(data):
+def ajust_gauss(data, l):
     """Returns list
 
     Takes spectra data, minimum and maximum wavelengths and returns parameters of gaussian fit
     """
-    params0=[-1, data[0][data[1].argmin()], .1, data[1][0]]
+    params0=[-1, l, .15, data[1][0]]
     popt, r = (0, 0, 0, 0), 0
     while r < .9 and params0[2] > 0:
         try:
@@ -102,14 +122,14 @@ def ajust_gauss(data):
             s = (1 - y/data[1])**2
             r = 1 - s.sum()
             params0[2] -= .02
-        except RuntimeError:
-            print("Runtime Error. Line ignored.")
+        except RuntimeError or ValueError:
+            print("Error. Line ignored.")
             params0[2] -= .02
     return popt, r
 
 
 
-def get_W(data, r_tol = .994):
+def get_W(data, r_tol = 0.8):
     """Returns float
 
     Takes spectra data, minimum and maximum wavelengths of line limit and return equivalent width W_lambda.
@@ -118,21 +138,28 @@ def get_W(data, r_tol = .994):
     if r > r_tol:
         return W_gauss(*ps), ps, r
     else:
-        print("Bad line fit -> ignored")
-        return 1e10, 0, 0
+#        print("Bad line fit -> ignored")
+        return 0, [0, 0, 0, 0], 0
 
 
-def get_line_Ws(data, ws, k = .2, get_inds = False, get_zeros=False):
+def get_line_Ws(data, ws, k = .2, get_inds = False, get_zeros=False, plot = False, count=False):
     W = np.zeros(len(ws))
-    for i, wl in enumerate(ws):
-        line = limit_spec(data, wl-k, wl+k)
-        W[i], p, r = get_W(line)
-# Uncomment to plot line and gaussian fit as each is calculated. May take some time.
-#        if r > .98:
-#        plt.plot(line[0], line[1])
-#       plt.plot(line[0], gauss(line[0], *p))
-#       plt.show()
+    if plot:
+        for i, wl in enumerate(ws):
+            line = limit_spec(data, wl-k, wl+k)
+            W[i], ps, r = get_W(line)
+            # Uncomment to plot line and gaussian fit as each is calculated. May take some time.
+            #        if r > .98:
+            plt.plot(line[0], line[1])
+            plt.plot(line[0], gauss(line[0], *ps))
+            plt.show()
+    else:
+        for i, wl in enumerate(ws):
+            line = limit_spec(data, wl-k, wl+k)
+            W[i], ps, r = get_W(line)
     inds = np.where(W != 0)
+    if count:
+        print(len(W) - len(inds[0]))
     if get_zeros:
         return W
     elif get_inds:
@@ -151,9 +178,9 @@ def get_temp_estimate(data, EP1, EP2, wls1, wls2, lgf1, lgf2):
     lgf1 = lgf1[inds1]
     lgf2 = lgf2[inds2]
     x1 = np.array(lgf1 + np.log10(wls1))
-    y1 = np.array(W1*1000/wls1)
+    y1 = np.array(np.log10(W1*1000/wls1))
     x2 = np.array(lgf2 + np.log10(wls2))
-    y2 = np.array(W2*1000/wls2)
+    y2 = np.array(np.log10(W2*1000/wls2))
 #    plt.plot(x1, y1, "+")
 #    plt.plot(x2, y2, "+")
 #    plt.show()
@@ -198,4 +225,3 @@ def get_spec_fit(library, wl_obs, W_obs, \
         diff = (W_obs- W_synt)**2
         diffs[i] = diff.sum()
     return library[np.argmin(diffs)]
-

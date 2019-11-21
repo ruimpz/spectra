@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Arch Linux)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: proj1.aux
+The style file: aa.bst
+Database file #1: spectra.bib
+Warning--I didn't find a database entry for "baker"
+Reallocated wiz_functions (elt_size=8) to 6000 items from 3000.
+Warning--empty publisher in monteiro_sebenta_2019
+You've used 3 entries,
+            3039 wiz_defined-function locations,
+            681 strings with 5199 characters,
+and the built_in function-call counts, 1493 in all, are:
+= -- 118
+> -- 118
+< -- 1
++ -- 41
+- -- 36
+* -- 125
+:= -- 276
+add.period$ -- 3
+call.type$ -- 3
+change.case$ -- 24
+chr.to.int$ -- 3
+cite$ -- 4
+duplicate$ -- 55
+empty$ -- 86
+format.name$ -- 46
+if$ -- 291
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 3
+newline$ -- 13
+num.names$ -- 12
+pop$ -- 26
+preamble$ -- 1
+purify$ -- 24
+quote$ -- 0
+skip$ -- 53
+stack$ -- 0
+substring$ -- 61
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 24
+warning$ -- 1
+while$ -- 11
+width$ -- 0
+write$ -- 32
+(There were 2 warnings)

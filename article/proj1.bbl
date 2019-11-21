@@ -1,0 +1,17 @@
+\begin{thebibliography}{3}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Laverny {et~al.}(2012)Laverny, Recio-Blanco, Worley, \&
+  Plez}]{laverny_ambre_2012}
+Laverny, P.~d., Recio-Blanco, A., Worley, C.~C., \& Plez, B. 2012, Astronomy \&
+  Astrophysics, 544, A126
+
+\bibitem[{Monteiro \& Gameiro(2019)}]{monteiro_sebenta_2019}
+Monteiro, M.~J. \& Gameiro, J. 2019, Sebenta {UC} {Astronomia} {Computacional}
+
+\bibitem[{Tsantaki {et~al.}(2013)Tsantaki, Sousa, Adibekyan, Santos, Mortier,
+  \& Israelian}]{tsantaki_deriving_2013}
+Tsantaki, M., Sousa, S.~G., Adibekyan, V.~Z., {et~al.} 2013, Astronomy \&
+  Astrophysics, 555, A150
+
+\end{thebibliography}
