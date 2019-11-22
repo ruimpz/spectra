@@ -17,29 +17,5 @@ wls = np.array(df["lambda"])
 wls = wls[(wls > data[0][0]) & (wls < data[0][-1])]
 
 k = .2
-for i in range(len(wls)):
-    line = spt.limit_spec(data, wls[i]-k, wls[i]+k)
-    plt.plot(line[0], line[1])
-    plt.show()
-    ind_min = line[1].argmin()
-    step1 = line[1, :ind_min-1] - line[1, 1:ind_min]
-    ind1 = np.where(step1 < 0)
-    if ind1[0].size>0:
-        k1 = line[0, ind1[0][-1]]
-    else:
-        k1 = wls[i] - k
-    step2 = line[1, ind_min:-1] - line[1, ind_min +1:]
-    ind2 = np.where(step2 > 0)
-    if ind2[0].size>0:
-        k2 = line[0, ind2[0][0] + ind_min]
-    else:
-        k2 = wls[i] + k
-    line = spt.limit_spec(line, k1, k2)
-    ps, r = spt.ajust_gauss(line, line[0, ind_min])
-    print(r)
-    plt.plot(line[0], line[1], label="Observed spectra")
-    plt.plot(line[0], spt.gauss(line[0], *ps), label="Gaussian fit")
-    plt.ylabel("Flux (normalized)")
-    plt.xlabel(r"$\lambda$ ($\AA$) ")
-    plt.legend()
-    plt.show()
+
+ws, W = spt.get_line_Ws(data, wls, plot=True)

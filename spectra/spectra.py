@@ -108,12 +108,32 @@ def W_gauss(a, b, c, d):
     return np.absolute(np.sqrt(2 * np.pi) * a * c / d)
 
 
-def ajust_gauss(data, l):
+def limit_line(line, wl, k = .2):
+    try:
+        ind_min = line[1].argmin()
+        wl_min = line[0, ind_min]
+        step1 = line[1, :ind_min-5] - line[1, 1:ind_min-4]
+        ind1 = np.where(step1 < 0)
+        if ind1[0].size>0:
+            k1 = wl_min - line[0, ind1[0][-1]]
+        else:
+            k1 = k
+        step2 = line[1, ind_min:-5] - line[1, ind_min+1:-6]
+        ind2 = np.where(step2 > 0)
+        if ind2[0].size>0:
+            k2 = line[0, ind2[0][0] + ind_min] - wl_min
+        else:
+            k2 = k
+        return limit_spec(line, wl_min - k1, wl_min + k2), wl_min
+    except ValueError:
+        return limit_spec(line, wl_min - k, wl_min + k), wl_min
+
+def ajust_gauss(data, wl_min, std_dev=.14):
     """Returns list
 
     Takes spectra data, minimum and maximum wavelengths and returns parameters of gaussian fit
     """
-    params0=[-1, l, .15, data[1][0]]
+    params0=[-1, wl_min, .1, data[1, -1]]
     popt, r = (0, 0, 0, 0), 0
     while r < .9 and params0[2] > 0:
         try:
@@ -121,20 +141,19 @@ def ajust_gauss(data, l):
             y = gauss(data[0], *popt)
             s = (1 - y/data[1])**2
             r = 1 - s.sum()
-            params0[2] -= .02
-        except RuntimeError or ValueError:
+            params0[2] -= .01
+        except RuntimeError or TypeError:
             print("Error. Line ignored.")
-            params0[2] -= .02
+            params0[2] -= .01
     return popt, r
 
 
-
-def get_W(data, r_tol = 0.8):
+def get_W(data, wl_min, r_tol = 0.8):
     """Returns float
 
     Takes spectra data, minimum and maximum wavelengths of line limit and return equivalent width W_lambda.
     """
-    ps, r = ajust_gauss(data)
+    ps, r = ajust_gauss(data, wl_min)
     if r > r_tol:
         return W_gauss(*ps), ps, r
     else:
@@ -142,21 +161,24 @@ def get_W(data, r_tol = 0.8):
         return 0, [0, 0, 0, 0], 0
 
 
-def get_line_Ws(data, ws, k = .2, get_inds = False, get_zeros=False, plot = False, count=False):
+def get_line_Ws(data, ws, k = .2, limit = False, get_inds = False, get_zeros=False, plot = False, count=False):
     W = np.zeros(len(ws))
     if plot:
         for i, wl in enumerate(ws):
             line = limit_spec(data, wl-k, wl+k)
-            W[i], ps, r = get_W(line)
-            # Uncomment to plot line and gaussian fit as each is calculated. May take some time.
-            #        if r > .98:
-            plt.plot(line[0], line[1])
-            plt.plot(line[0], gauss(line[0], *ps))
+            lim_line, wl_min = limit_line(line, wl, k = k)
+            W[i], ps, r = get_W(lim_line, wl_min)
+            plt.plot(lim_line[0], lim_line[1])
+            plt.plot(lim_line[0], gauss(lim_line[0], *ps))
             plt.show()
     else:
         for i, wl in enumerate(ws):
             line = limit_spec(data, wl-k, wl+k)
-            W[i], ps, r = get_W(line)
+            if limit:
+                line, wl_min = limit_line(line, wl, k = k)
+            else:
+                wl_min = line[0, line[1].argmin()]
+            W[i], ps, r = get_W(line, wl_min)
     inds = np.where(W != 0)
     if count:
         print(len(W) - len(inds[0]))
@@ -211,6 +233,22 @@ def read_library(library_path, Ts, logg_min = 3.5):
                 data.append(file)
     return data
 
+#def get_spec_fit(library, wl_obs, W_obs, \
+#                 library_path="../library/GES_UVESRed580_deltaAlphaFe+0.0_fits/", \
+#                 lambda_file="../imagens_teste/GES_UVESRed580_Lambda.fits", k = .2):
+#    """Returns string.
+#
+#    Compares equivalent width of lines of observed spectra with database of synthetic spectra and returns name of best fitting synthetic spectra.
+#    """
+#    diffs = np.zeros(len(library))
+#    for i, synt_spec in enumerate(library):
+#        synt_data = np.array(read_sintfile(lambda_file, library_path + synt_spec))
+#        W_synt = get_line_Ws(synt_data, wl_obs, get_zeros=True, k = k, limit=True, count=True)
+#        diff = (W_obs- W_synt)**2
+#        diffs[i] = diff.sum()
+#    return library[np.argmin(diffs)]
+
+
 def get_spec_fit(library, wl_obs, W_obs, \
                  library_path="../library/GES_UVESRed580_deltaAlphaFe+0.0_fits/", \
                  lambda_file="../imagens_teste/GES_UVESRed580_Lambda.fits", k = .2):
@@ -218,10 +256,13 @@ def get_spec_fit(library, wl_obs, W_obs, \
 
     Compares equivalent width of lines of observed spectra with database of synthetic spectra and returns name of best fitting synthetic spectra.
     """
-    diffs = np.zeros(len(library))
+    fits = np.zeros(len(library))
     for i, synt_spec in enumerate(library):
         synt_data = np.array(read_sintfile(lambda_file, library_path + synt_spec))
-        W_synt = get_line_Ws(synt_data, wl_obs, get_zeros=True, k = k)
-        diff = (W_obs- W_synt)**2
-        diffs[i] = diff.sum()
-    return library[np.argmin(diffs)]
+        wl_calculated, W_synt, inds = get_line_Ws(synt_data, wl_obs, get_inds=True, k = k, limit=True)
+        p, o = opt.curve_fit(lambda x, a, b: a*x+b, W_synt, W_obs[inds])
+        fits[i] = p[0]
+    return fits
+
+
+
