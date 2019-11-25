@@ -21,6 +21,7 @@
 \usepackage{txfonts}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath}
+\usepackage{subfigure}
 %\usepackage[options]{hyperref}
 % To add links in your PDF file, use the package "hyperref"
 % with options according to your LaTeX or PDFLaTeX drivers.
@@ -28,8 +29,10 @@
 \begin{document} 
 
 
+
    \title{Stellar parameters determination}
 
+   
    \subtitle{Project I - Computational Astronomy}
 
    \author{Rui Peixoto}
@@ -111,8 +114,9 @@ line may be estimated by employing a Gaussian fit (Figure
 \end{equation}
 
 where $F_{\text{cont}}$ is the continuum line and $k$ some appropriate
-limitation such that a line is isolated but not cut. Computationally, the
-integral need not be computed, as one can get the width from the Gaussian
+limitation such that a line is isolated but not cut. Deciding on a good
+parameter $k$ is in itself a problem that will be discussed in section \ref{sec:k}.
+Computationally, the integral need not be computed, as one can get the width from the Gaussian
 parameters only, by setting $F_{\text{cont}}$ as the additive parameter of the fit.
 
 \begin{figure}
@@ -122,7 +126,9 @@ parameters only, by setting $F_{\text{cont}}$ as the additive parameter of the f
   \label{fig:line_fit}
 \end{figure}
 
+
 \subsection{Temperature estimation}
+\label{sec:temp_estimation}
 
 With efficiency in mind, we start by estimating the effective temperature of our
 spectra, as this allows us to limit the range of spectra to lookup in the
@@ -144,6 +150,7 @@ linear fits (for which equation \ref{eq:log_W_relation} is common) as $\Delta$ a
   \label{eq:T_exc}
   T_{\text{exc}} = \frac{| 5040 \left( \chi_2 - \chi_1 |\right)}{\Delta}
 \end{equation}
+
 
 Using known equivalent widths for the sun's lines (Figure \ref{fig:temp_estimation_sun})
 we get $T = 5769$ K directly from equation \ref{eq:T_exc}.
@@ -196,6 +203,67 @@ with the observed spectra. This consists of:
 \end{enumerate}
 
 
+\section{Fitting pathologies}
+
+In some spectra we noted some pathological behavior and conformed our method
+to avoid it as systematically and consistently as possible. What follows is the
+analysis of these such cases and discussion of the workarounds used.
+
+\subsection{Fitting lines - $k$ parameter}
+\label{sec:k}
+
+While the fitting of lines in observed spectra with fixed $k$ works well, it
+becomes a problem when calculating equivalent widths of lines in synthetic
+spectra. In these, multiple lines may get mixed together resulting in the
+broadening and partial overlapping, as seen in figure \ref{fig:bad_synth_lines}.
+
+\begin{figure}[h]
+  \subfigure{\includegraphics[width=.49\linewidth]{bad_synth_overlap.pdf}}
+  \subfigure{\includegraphics[width=.49\linewidth]{bad_synth_broadening.pdf}}
+  \caption{Behavior of synthetic spectral lines}
+  \label{fig:bad_synth_lines}
+\end{figure}
+
+Here, as efficiency is key, we take advantage of the well-behaved nature of the
+synthetic spectra and evaluate a step difference function (calculating average difference
+between points) \footnote{A computationally heavier alternative would be to
+  evaluate the first and second derivative of the function. Our method, however,
+  scales with $\mathcal{O}(n)$.} that allows us to limit a line to it's
+surrounding maxima, henceforth using the limited line to calculate equivalent
+widths. The parameter $k$ in equation \ref{eq:W_estimation} is therefore automatically determined for these
+spectra.
+
+The adaptation of this method to the observed spectra is non-trivial because of experimental noise.
+
+\subsection{Variable initial conditions in Gaussian fits}
+
+The aforementioned behavior of synthetic spectra (or other conditions such as
+high rotational velocity) may induce problems while trying to employ Gaussian
+fits, with significant line width variation. We handle this by varying the
+proposed initial conditions for the fit and comparing residuals until we get a
+good fit.
+
+With effect, this implementation makes it possible to automatically determine
+the quality of a fit. If no parameters provide a good fit, a line may not
+behave as a Gaussian (as mentioned in section \ref{sec:k}), and can be safely ignored.
+
+\subsection{Multiplet selection}
+
+The choice of multiplet used for comparison in temperature estimation (section
+\ref{sec:temp_estimation}) need carefully adhere to the conditions:
+
+\begin{enumerate}
+\item Both multiplets may be restricted to a small excitation energy range EP1 and EP2.
+\item EP1 and EP2 be sufficiently distinct from each other. 
+\item Lines to be considered in a given multiplet should have similar wavelength.
+\item Energy ranges are associated with lines of comparable equivalent widths,
+  so as to enable the computation of average distance between them.
+\end{enumerate}
+
+Even under these conditions, better results are obtained from multiplets corresponding
+to growth curves of similar slope, as seen in figure
+\ref{fig:temp_estimation_sun}. For keeping under these orientations, a casuistic
+verification may be needed for optimal results.
 
 %-------------------------------------------------------------------
 \section{Conclusions}

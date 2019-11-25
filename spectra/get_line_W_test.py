@@ -18,4 +18,9 @@ wls = wls[(wls > data[0][0]) & (wls < data[0][-1])]
 
 k = .2
 
-ws, W = spt.get_line_Ws(data, wls, plot=True)
+for i, wl in enumerate(wls):
+    line = spt.limit_spec(data, wl - k, wl + k)
+    plt.plot(line[0], line[1])
+    plt.xlabel(r"$\lambda$ $(\AA)$")
+    plt.ylabel("Flux (normalized)")
+    plt.show()

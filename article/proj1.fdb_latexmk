@@ -1,12 +1,14 @@
 # Fdb version 3
-["bibtex proj1"] 1574254271 "proj1.aux" "proj1.bbl" "proj1" 1574347567
+["bibtex proj1"] 0 "proj1.aux" "proj1.bbl" "proj1" 1574649373
   "/usr/share/texmf-dist/bibtex/bst/aa.bst" 1571244857 32103 296074362bd3e822c5209e1570c1d28f ""
-  "proj1.aux" 1574347525 2020 1fb9a77e76cfb8cd8caa39efde853769 "pdflatex"
+  "proj1.aux" 1574649368 2734 8eeb8db0fe4f41dd3d6dff21e6a96633 "pdflatex"
   "spectra.bib" 1574200596 6864 f4910aa9a70b44ec39e5803b316e4612 ""
   (generated)
-  "proj1.blg"
   "proj1.bbl"
-["pdflatex"] 1574347567 "proj1.tex" "proj1.pdf" "proj1" 1574347567
+  "proj1.blg"
+["pdflatex"] 1574649368 "proj1.tex" "proj1.pdf" "proj1" 1574649373
+  "../figures/bad_synth_broadening.pdf" 1574533071 15045 dcb902d3129b5ed0d4bea591e13db0df ""
+  "../figures/bad_synth_overlap.pdf" 1574533164 14640 00cd305b710845d8d3e04dedb412bea1 ""
   "../figures/line_fit1.pdf" 1574199728 16861 beae6b026e15a76e6c65b11f701a5285 ""
   "../figures/temperature_estimation_sun.pdf" 1574247136 19177 8834e8ad2cc48b348af96ccf1c6f3f30 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1572595918 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -107,6 +109,8 @@
   "/usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty" 1572595918 22417 1d9df1eb66848aa31b18a593099cf45c ""
   "/usr/share/texmf-dist/tex/latex/setspace/setspace.sty" 1572595918 22913 a27d7908fc6f0385466454a966a316eb ""
   "/usr/share/texmf-dist/tex/latex/sttools/cuted.sty" 1572592815 17058 21763634ae8a2f38e062576e588fbf25 ""
+  "/usr/share/texmf-dist/tex/latex/subfigure/subfigure.cfg" 1572592815 2062 a0e7d66e09e508f51289a656aec06ed2 ""
+  "/usr/share/texmf-dist/tex/latex/subfigure/subfigure.sty" 1572592815 15188 91281c7ddbccfa54a8e0c3b56ab5aa72 ""
   "/usr/share/texmf-dist/tex/latex/tools/calc.sty" 1572595918 10216 54c740cb9d999378b16df7e5c92c17a0 ""
   "/usr/share/texmf-dist/tex/latex/tools/enumerate.sty" 1572595918 3469 bb111855092044188dbc6ed4683ad0a9 ""
   "/usr/share/texmf-dist/tex/latex/tools/longtable.sty" 1572595918 12125 d0d4ebd542e3988278244a32c1fea9b5 ""
@@ -128,10 +132,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1572595918 33301 a3134070eacafb10b1f371612ce2650d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1573863675 4572998 f9631eebba48c3ee98e5d310044b0a09 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1573863656 8044940 a4fa811d9c341a14b061a06d8c6ce1b9 ""
-  "proj1.aux" 1574347525 2020 1fb9a77e76cfb8cd8caa39efde853769 "pdflatex"
-  "proj1.bbl" 1574254271 684 913fbf6e0a0880222a34aea7cbba0bba "bibtex proj1"
-  "proj1.tex" 1574347567 10029 1145d72381d0fbf456cd87b331bb8ed2 ""
+  "proj1.aux" 1574649368 2734 8eeb8db0fe4f41dd3d6dff21e6a96633 "pdflatex"
+  "proj1.bbl" 1574648229 684 913fbf6e0a0880222a34aea7cbba0bba "bibtex proj1"
+  "proj1.tex" 1574649368 13256 0e610e3fb22ea5940efad33f18d65637 ""
   (generated)
   "proj1.pdf"
-  "proj1.aux"
   "proj1.log"
+  "proj1.aux"

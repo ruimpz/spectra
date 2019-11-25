@@ -128,12 +128,13 @@ def limit_line(line, wl, k = .2):
     except ValueError:
         return limit_spec(line, wl_min - k, wl_min + k), wl_min
 
-def ajust_gauss(data, wl_min, std_dev=.14):
+def ajust_gauss(data, wl_min, std_dev=.15):
     """Returns list
 
     Takes spectra data, minimum and maximum wavelengths and returns parameters of gaussian fit
     """
     params0=[-1, wl_min, .1, data[1, -1]]
+
     popt, r = (0, 0, 0, 0), 0
     while r < .9 and params0[2] > 0:
         try:

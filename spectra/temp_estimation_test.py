@@ -29,16 +29,15 @@ EW2 = EW[valid_lines2]
 # get Ws
 fitted_wl1, W1 = spt.get_line_Ws(obs_data, wl1)
 fitted_wl2, W2 = spt.get_line_Ws(obs_data, wl2)
-
 # Get temperature estimation
 T0 = spt.get_temp_estimate(obs_data, EP1, EP2, wl1, wl2, lgf1, lgf2)
 print("T = {} K".format(T0))
 
 # We replicate the get_temp_estimate method for representation
-x1 = np.array(lgf1 + np.log10(wl1))
-y1 = np.array(np.log10(EW1/wl1))
-x2 = np.array(lgf2 + np.log10(wl2))
-y2 = np.array(np.log10(EW2/wl2))
+x1 = np.array(lgf1 + np.log10(fitted_wl1))
+y1 = np.array(np.log10(W1*1000/fitted_wl1))
+x2 = np.array(lgf2 + np.log10(fitted_wl2))
+y2 = np.array(np.log10(W2*1000/fitted_wl2))
 p1, o1 = opt.curve_fit(lambda x, a, b: a*x+b, x1, y1)
 p2, o2 = opt.curve_fit(lambda x, a, b: a*x+b, x2, y2)
 ymin, ymax = max(y1[0], y2[0]), min(y1[-1], y2[-1])
