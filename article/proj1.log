@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.11.16)  25 NOV 2019 02:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.11.16)  30 NOV 2019 22:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -458,46 +458,66 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 (/usr/share/texmf-dist/tex/latex/subfigure/subfigure.cfg)
 \subfig@top=\skip125
 \subfig@bottom=\skip126
+)
+(/usr/share/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2019/10/08 v1.6180339 publication quality tables
+\heavyrulewidth=\dimen130
+\lightrulewidth=\dimen131
+\cmidrulewidth=\dimen132
+\belowrulesep=\dimen133
+\belowbottomsep=\dimen134
+\aboverulesep=\dimen135
+\abovetopsep=\dimen136
+\cmidrulesep=\dimen137
+\cmidrulekern=\dimen138
+\defaultaddspace=\dimen139
+\@cmidla=\count130
+\@cmidlb=\count131
+\@aboverulesep=\dimen140
+\@belowrulesep=\dimen141
+\@thisruleclass=\count132
+\@lastruleclass=\count133
+\@thisrulewidth=\dimen142
 ) (./proj1.aux)
 \openout1 = `proj1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 29.
+LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 31.
 LaTeX Font Info:    Trying to load font information for OML+txmi on input line 
-29.
+31.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 31.
 LaTeX Font Info:    Trying to load font information for OMS+txsy on input line 
-29.
+31.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omstxsy.fd
 File: omstxsy.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 31.
 LaTeX Font Info:    Trying to load font information for OMX+txex on input line 
-29.
+31.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omxtxex.fd
 File: omxtxex.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 29.
-LaTeX Font Info:    Trying to load font information for U+txexa on input line 2
-9.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 31.
+LaTeX Font Info:    Trying to load font information for U+txexa on input line 3
+1.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxexa.fd
 File: utxexa.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Trying to load font information for T1+txr on input line 29
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Trying to load font information for T1+txr on input line 31
 .
 
 (/usr/share/texmf-dist/tex/latex/txfonts/t1txr.fd
@@ -538,16 +558,16 @@ File: t1txr.fd 2000/12/15 v3.1
 
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count130
-\scratchdimen=\dimen130
+\scratchcounter=\count134
+\scratchdimen=\dimen143
 \scratchbox=\box41
-\nofMPsegments=\count131
-\nofMParguments=\count132
+\nofMPsegments=\count135
+\nofMParguments=\count136
 \everyMPshowfont=\toks29
-\MPscratchCnt=\count133
-\MPscratchDim=\dimen131
-\MPnumerator=\count134
-\makeMPintoPDFobject=\count135
+\MPscratchCnt=\count137
+\MPscratchDim=\dimen144
+\MPnumerator=\count138
+\makeMPintoPDFobject=\count139
 \everyMPtoPDFconversion=\toks30
 ) (/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -597,78 +617,78 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    Trying to load font information for OMS+txr on input line 7
-2.
+4.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omstxr.fd
 File: omstxr.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OMS/txr/m/n' in size <10> not available
-(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 72.
+(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 74.
 LaTeX Font Info:    Trying to load font information for OT1+txr on input line 7
-2.
+4.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/ot1txr.fd
 File: ot1txr.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Trying to load font information for U+txsya on input line 7
-2.
+4.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxsya.fd
 File: utxsya.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Trying to load font information for U+txsyb on input line 7
-2.
+4.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxsyb.fd
 File: utxsyb.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Trying to load font information for U+txmia on input line 7
-2.
+4.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Trying to load font information for U+txsyc on input line 7
-2.
+4.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Trying to load font information for T1+txss on input line 7
-2.
+4.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/t1txss.fd
 File: t1txss.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 16.41594pt on input line 72.
+(Font)              scaled to size 16.41594pt on input line 74.
 LaTeX Font Info:    Font shape `T1/txss/bx/n' will be
-(Font)              scaled to size 16.41594pt on input line 72.
+(Font)              scaled to size 16.41594pt on input line 74.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 13.67995pt on input line 72.
+(Font)              scaled to size 13.67995pt on input line 74.
 LaTeX Font Info:    Font shape `T1/txss/bx/n' will be
-(Font)              scaled to size 13.67995pt on input line 72.
+(Font)              scaled to size 13.67995pt on input line 74.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 8.54997pt on input line 72.
+(Font)              scaled to size 8.54997pt on input line 74.
 LaTeX Font Info:    Font shape `T1/txss/bx/n' will be
-(Font)              scaled to size 8.54997pt on input line 72.
+(Font)              scaled to size 8.54997pt on input line 74.
 LaTeX Font Info:    Font shape `T1/txss/m/it' in size <9> not available
-(Font)              Font shape `T1/txss/m/sl' tried instead on input line 72.
+(Font)              Font shape `T1/txss/m/sl' tried instead on input line 74.
 LaTeX Font Info:    Font shape `T1/txss/m/sl' will be
-(Font)              scaled to size 8.54997pt on input line 72.
+(Font)              scaled to size 8.54997pt on input line 74.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 10.40245pt on input line 76.
+(Font)              scaled to size 10.40245pt on input line 78.
 LaTeX Font Info:    Font shape `T1/txss/bx/n' will be
-(Font)              scaled to size 10.40245pt on input line 76.
+(Font)              scaled to size 10.40245pt on input line 78.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 105.
+(Font)              scaled to size 9.49997pt on input line 107.
 LaTeX Font Info:    Font shape `T1/txss/m/it' in size <10> not available
-(Font)              Font shape `T1/txss/m/sl' tried instead on input line 105.
+(Font)              Font shape `T1/txss/m/sl' tried instead on input line 107.
 LaTeX Font Info:    Font shape `T1/txss/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 105.
+(Font)              scaled to size 9.49997pt on input line 107.
 
-./proj1.tex:113: Undefined control sequence.
-l.113   W_{\lamba
+./proj1.tex:115: Undefined control sequence.
+l.115   W_{\lamba
                  _0} = \int_{\lambda_0 - k}^{\lambda_0 + k} \frac{F_{\text{c...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -679,12 +699,9 @@ and I'll forget about whatever was undefined.
 <../figures/line_fit1.pdf, id=1, 651.8754pt x 714.75032pt>
 File: ../figures/line_fit1.pdf Graphic file (type pdf)
 <use ../figures/line_fit1.pdf>
-Package pdftex.def Info: ../figures/line_fit1.pdf  used on input line 124.
+Package pdftex.def Info: ../figures/line_fit1.pdf  used on input line 126.
 (pdftex.def)             Requested size: 256.0748pt x 280.78006pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
  <../figures/line_fit1.pdf>]
@@ -692,23 +709,56 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: ../figures/temperature_estimation_sun.pdf Graphic file (type pdf)
 <use ../figures/temperature_estimation_sun.pdf>
 Package pdftex.def Info: ../figures/temperature_estimation_sun.pdf  used on inp
-ut line 160.
+ut line 162.
 (pdftex.def)             Requested size: 256.0748pt x 280.78006pt.
-<../figures/bad_synth_overlap.pdf, id=65, 651.8754pt x 714.75032pt>
+<../figures/line_fft.pdf, id=65, 651.8754pt x 714.75032pt>
+File: ../figures/line_fft.pdf Graphic file (type pdf)
+<use ../figures/line_fft.pdf>
+Package pdftex.def Info: ../figures/line_fft.pdf  used on input line 217.
+(pdftex.def)             Requested size: 256.0748pt x 280.78006pt.
+<../figures/rot_profile.pdf, id=66, 651.8754pt x 714.75032pt>
+File: ../figures/rot_profile.pdf Graphic file (type pdf)
+<use ../figures/rot_profile.pdf>
+Package pdftex.def Info: ../figures/rot_profile.pdf  used on input line 233.
+(pdftex.def)             Requested size: 256.0748pt x 280.78006pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[2 <../figures/temperature_estimation_sun.pdf> <../figures/line_fft.pdf
+
+pdfTeX warning: pdflatex (file ../figures/line_fft.pdf): PDF inclusion: multipl
+e pdfs with page group included in a single page
+>]
+<../figures/bad_synth_overlap.pdf, id=167, 651.8754pt x 714.75032pt>
 File: ../figures/bad_synth_overlap.pdf Graphic file (type pdf)
 <use ../figures/bad_synth_overlap.pdf>
 Package pdftex.def Info: ../figures/bad_synth_overlap.pdf  used on input line 2
-21.
+58.
 (pdftex.def)             Requested size: 125.47806pt x 137.58168pt.
-<../figures/bad_synth_broadening.pdf, id=66, 651.8754pt x 714.75032pt>
+<../figures/bad_synth_broadening.pdf, id=168, 651.8754pt x 714.75032pt>
 File: ../figures/bad_synth_broadening.pdf Graphic file (type pdf)
 <use ../figures/bad_synth_broadening.pdf>
 Package pdftex.def Info: ../figures/bad_synth_broadening.pdf  used on input lin
-e 222.
+e 259.
 (pdftex.def)             Requested size: 125.47806pt x 137.58168pt.
 
-[2 <../figures/temperature_estimation_sun.pdf> <../figures/bad_synth_overlap.pd
-f
+./proj1.tex:267: Too many }'s.
+l.267   scales with $\mathcal{O}(n)$.}
+                                       that allows us to limit a line to its
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+<../figures/normalization_with_d.pdf, id=169, 651.8754pt x 714.75032pt>
+File: ../figures/normalization_with_d.pdf Graphic file (type pdf)
+<use ../figures/normalization_with_d.pdf>
+Package pdftex.def Info: ../figures/normalization_with_d.pdf  used on input lin
+e 313.
+(pdftex.def)             Requested size: 256.0748pt x 280.78006pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3 <../figures/rot_profile.pdf> <../figures/bad_synth_overlap.pdf
 
 pdfTeX warning: pdflatex (file ../figures/bad_synth_overlap.pdf): PDF inclusion
 : multiple pdfs with page group included in a single page
@@ -717,38 +767,76 @@ pdfTeX warning: pdflatex (file ../figures/bad_synth_overlap.pdf): PDF inclusion
 pdfTeX warning: pdflatex (file ../figures/bad_synth_broadening.pdf): PDF inclus
 ion: multiple pdfs with page group included in a single page
 >]
+<../figures/temperature_estimation_star1.pdf, id=289, 651.8754pt x 714.75032pt>
 
-Package natbib Warning: Citation `baker' on page 3 undefined on input line 273.
+File: ../figures/temperature_estimation_star1.pdf Graphic file (type pdf)
+<use ../figures/temperature_estimation_star1.pdf>
+Package pdftex.def Info: ../figures/temperature_estimation_star1.pdf  used on i
+nput line 373.
+(pdftex.def)             Requested size: 256.0748pt x 280.78006pt.
 
 
-(./proj1.bbl)
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-Package natbib Warning: There were undefined citations.
+<../figures/best_fit_star1.pdf, id=290, 651.8754pt x 714.75032pt>
+File: ../figures/best_fit_star1.pdf Graphic file (type pdf)
+<use ../figures/best_fit_star1.pdf>
+Package pdftex.def Info: ../figures/best_fit_star1.pdf  used on input line 393.
 
-[3
+(pdftex.def)             Requested size: 256.0748pt x 280.78006pt.
 
-] (./proj1.aux) ) 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<../figures/temperature_estimation_star2.pdf, id=291, 651.8754pt x 714.75032pt>
+
+File: ../figures/temperature_estimation_star2.pdf Graphic file (type pdf)
+<use ../figures/temperature_estimation_star2.pdf>
+Package pdftex.def Info: ../figures/temperature_estimation_star2.pdf  used on i
+nput line 430.
+(pdftex.def)             Requested size: 125.47806pt x 137.58168pt.
+<../figures/best_fit_star2.pdf, id=292, 651.8754pt x 714.75032pt>
+File: ../figures/best_fit_star2.pdf Graphic file (type pdf)
+<use ../figures/best_fit_star2.pdf>
+Package pdftex.def Info: ../figures/best_fit_star2.pdf  used on input line 431.
+
+(pdftex.def)             Requested size: 125.47806pt x 137.58168pt.
+[4 <../figures/normalization_with_d.pdf> <../figures/temperature_estimation_sta
+r1.pdf
+
+pdfTeX warning: pdflatex (file ../figures/temperature_estimation_star1.pdf): PD
+F inclusion: multiple pdfs with page group included in a single page
+>] (./proj1.bbl) [5 <../figures/best_fit_star1.pdf> <../figures/temperature_est
+imation_star2.pdf
+
+pdfTeX warning: pdflatex (file ../figures/temperature_estimation_star2.pdf): PD
+F inclusion: multiple pdfs with page group included in a single page
+> <../figures/best_fit_star2.pdf
+
+pdfTeX warning: pdflatex (file ../figures/best_fit_star2.pdf): PDF inclusion: m
+ultiple pdfs with page group included in a single page
+>] (./proj1.aux) ) 
 Here is how much of TeX's memory you used:
- 6632 strings out of 492167
- 85009 string characters out of 6131557
- 169943 words of memory out of 5000000
- 10797 multiletter control sequences out of 15000+600000
- 91720 words of font info for 132 fonts, out of 8000000 for 9000
+ 6768 strings out of 492167
+ 88030 string characters out of 6131557
+ 171173 words of memory out of 5000000
+ 10918 multiletter control sequences out of 15000+600000
+ 94473 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 46i,11n,49p,272b,347s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share
-/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/share/texmf-dist/fonts/t
-ype1/public/txfonts/rtxr.pfb></usr/share/texmf-dist/fonts/type1/public/txfonts/
-rtxr.pfb></usr/share/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/share
-/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/share/texmf-dist/fonts/ty
-pe1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhv
-r8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/tex
-mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw
-/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on proj1.pdf (3 pages, 130580 bytes).
+ 46i,12n,49p,308b,361s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/shar
+e/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/share/texmf-dist/fonts/
+type1/public/txfonts/rtxr.pfb></usr/share/texmf-dist/fonts/type1/public/txfonts
+/rtxr.pfb></usr/share/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/share/texmf-dist/fonts/t
+ype1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uh
+vr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share
+/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1
+/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><
+/usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on proj1.pdf (5 pages, 282135 bytes).
 PDF statistics:
- 238 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
+ 589 PDF objects out of 1000 (max. 8388607)
+ 165 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,5 +1,10 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{6}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Aguilera-Gómez {et~al.}(2018)Aguilera-Gómez, Ramírez, \&
+  Chanamé}]{aguilera-gomez_lithium_2018}
+Aguilera-Gómez, C., Ramírez, I., \& Chanamé, J. 2018, Astronomy and
+  Astrophysics, 614, A55
 
 \bibitem[{Laverny {et~al.}(2012)Laverny, Recio-Blanco, Worley, \&
   Plez}]{laverny_ambre_2012}
@@ -8,6 +13,17 @@ Laverny, P.~d., Recio-Blanco, A., Worley, C.~C., \& Plez, B. 2012, Astronomy \&
 
 \bibitem[{Monteiro \& Gameiro(2019)}]{monteiro_sebenta_2019}
 Monteiro, M.~J. \& Gameiro, J. 2019, Sebenta {UC} {Astronomia} {Computacional}
+
+\bibitem[{Sousa {et~al.}(2015)Sousa, Santos, Adibekyan, Delgado-Mena, \&
+  Israelian}]{sousa_ares_2015}
+Sousa, S.~G., Santos, N.~C., Adibekyan, V., Delgado-Mena, E., \& Israelian, G.
+  2015, Astronomy \& Astrophysics, 577, A67
+
+\bibitem[{Suárez-Andrés {et~al.}(2018)Suárez-Andrés, Israelian,
+  González~Hernández, Adibekyan, Delgado~Mena, Santos, \&
+  Sousa}]{suarez-andres_c/o_2018}
+Suárez-Andrés, L., Israelian, G., González~Hernández, J.~I., {et~al.} 2018,
+  Astronomy and Astrophysics, 614, A84
 
 \bibitem[{Tsantaki {et~al.}(2013)Tsantaki, Sousa, Adibekyan, Santos, Mortier,
   \& Israelian}]{tsantaki_deriving_2013}

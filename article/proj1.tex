@@ -11,6 +11,7 @@
 %\documentclass[bibyear]{aa} % if the references are not structured 
 %                              according to the author-year natbib style
 
+
 %
 \documentclass{aa}  
 
@@ -22,6 +23,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath}
 \usepackage{subfigure}
+\usepackage{booktabs}
 %\usepackage[options]{hyperref}
 % To add links in your PDF file, use the package "hyperref"
 % with options according to your LaTeX or PDFLaTeX drivers.
@@ -55,7 +57,7 @@
   % methods heading (mandatory)
    {Stellar parameters are estimated and observed spectra are compared with
      preselected synthetic spectra by equivalent width comparison of select fitted
-     spectral lines. Selected synthetic spectra are then processed and
+     lines. Selected synthetic spectra are then processed and
      interpolated to facilitate comparison with observed spectra.}
   % results heading (mandatory)
    {Computational method is implemented and two stars analysed. Sensibility to a
@@ -114,10 +116,10 @@ line may be estimated by employing a Gaussian fit (Figure
 \end{equation}
 
 where $F_{\text{cont}}$ is the continuum line and $k$ some appropriate
-limitation such that a line is isolated but not cut. Deciding on a good
+limitation such that the line is isolated but not cut. Deciding on a good
 parameter $k$ is in itself a problem that will be discussed in section \ref{sec:k}.
 Computationally, the integral need not be computed, as one can get the width from the Gaussian
-parameters only, by setting $F_{\text{cont}}$ as the additive parameter of the fit.
+parameters only.
 
 \begin{figure}
   \centering
@@ -163,6 +165,7 @@ we get $T = 5769$ K directly from equation \ref{eq:T_exc}.
 \end{figure}
 
 \subsection{Synthetic spectra database lookup and comparison}
+\label{sec:database_lookup}
 
 Setting an uncertainty interval on the temperature $\Delta T$  (in our case,
 $\Delta T$ = 400K), one may now compare the observed spectra with synthetic
@@ -196,10 +199,44 @@ with the observed spectra. This consists of:
 
   being $\sigma$ the standard deviation of the Gaussian function and $R$ the
   resolution of the instrument ($R \approx 50000$ for HARPS used in \cite{tsantaki_deriving_2013}).
+\item estimating the rotational velocity of the star $v \sin I$ by Fourier analysis
+  of the spectra and averaging the minima its FFT (see figure
+  \ref{fig:line_fft}) over given lines and estimating $v \sin I$ by equation 
 
-\item applying the rotational profile of the star by \#TODO
-\item interpolating the synthetic spectra with observed data for ease of
-  posterior analysis. 
+  \begin{equation}
+    \label{eq:vsinI}
+    v \sin I = \frac{\Delta \lambda_M}{\lambda_0} c
+  \end{equation}
+
+  where $c$ is the speed of light, $\lambda_0$ the central wavelength of the
+  line, and $\Delta \lambda_M$ obtained by comparison with the values for the
+  Sun, assuming linear limb darkening. \cite{monteiro_sebenta_2019}
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{line_fft.pdf}
+    \caption{Spectral line Fourier Transform}
+    \label{fig:line_fft}
+  \end{figure}
+ 
+\item if rotational velocity is significant, applying a rotational profile to the
+  spectra by convolution with a function of the type in equation \ref{eq:rot_profile}
+  (illustrated in figure \ref{fig:rot_profile}). \footnote{For our analysis, we
+    estimate $\epsilon$ by using it's value for the Sun.}
+  \begin{equation}
+    \label{eq:rot_profile}
+    G_{\epsilon}\left(\lambda-\lambda_{0}\right)=\frac{2(1-\epsilon)\left(1-\left(\frac{\lambda-\lambda_{0}}{\Delta \lambda_{M}}\right)^{2}\right)^{1 / 2}+\frac{\pi \epsilon}{2}\left(1-\left(\frac{\lambda-\lambda_{0}}{\Delta \lambda_{M}}\right)^{2}\right)}{\pi \Delta \lambda_{M}(1-\epsilon / 3)}
+  \end{equation}
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{rot_profile.pdf}
+    \caption{Rotational profile}
+    \label{fig:rot_profile}
+  \end{figure}
+  
+\item interpolating the synthetic spectra with observed data
+  for ease of posterior analysis. 
 \end{enumerate}
 
 
@@ -207,7 +244,7 @@ with the observed spectra. This consists of:
 
 In some spectra we noted some pathological behavior and conformed our method
 to avoid it as systematically and consistently as possible. What follows is the
-analysis of these such cases and discussion of the workarounds used.
+analysis of such cases and discussion of the workarounds used.
 
 \subsection{Fitting lines - $k$ parameter}
 \label{sec:k}
@@ -226,9 +263,8 @@ broadening and partial overlapping, as seen in figure \ref{fig:bad_synth_lines}.
 
 Here, as efficiency is key, we take advantage of the well-behaved nature of the
 synthetic spectra and evaluate a step difference function (calculating average difference
-between points) \footnote{A computationally heavier alternative would be to
-  evaluate the first and second derivative of the function. Our method, however,
-  scales with $\mathcal{O}(n)$.} that allows us to limit a line to it's
+between points) evaluate the first and second derivative of the function. Our method, however,
+  scales with $\mathcal{O}(n)$.} that allows us to limit a line to its
 surrounding maxima, henceforth using the limited line to calculate equivalent
 widths. The parameter $k$ in equation \ref{eq:W_estimation} is therefore automatically determined for these
 spectra.
@@ -238,7 +274,7 @@ The adaptation of this method to the observed spectra is non-trivial because of 
 \subsection{Variable initial conditions in Gaussian fits}
 
 The aforementioned behavior of synthetic spectra (or other conditions such as
-high rotational velocity) may induce problems while trying to employ Gaussian
+high rotational velocity or turbulence) may induce problems while trying to employ Gaussian
 fits, with significant line width variation. We handle this by varying the
 proposed initial conditions for the fit and comparing residuals until we get a
 good fit.
@@ -247,7 +283,54 @@ With effect, this implementation makes it possible to automatically determine
 the quality of a fit. If no parameters provide a good fit, a line may not
 behave as a Gaussian (as mentioned in section \ref{sec:k}), and can be safely ignored.
 
+\subsection{Continuum estimation}
+\label{sec:continuum_estimation}
+
+The main difficulty of our method lies with calculating an accurate estimation of
+the continuum of the spectra for each line. In general, observed spectra may not be
+normalized and, because of the characteristics of the instrumentation used, have
+a different continuum level for different wavelengths.
+
+One can chose from many methods to approach this problem. In the following we discuss the
+advantages and disadvantages of some of the methods attempted. Additional
+possible solution are discussed in section \ref{sec:improvements}. \footnote{This
+  step in our algorithm is purposely left as modular and independent from the
+  rest as possible so different methods may be tried with minimal
+  reformulation of the program.}
+
+\subsubsection{Normalizion with additive Gaussian parameter}
+\label{sec:norm1}
+
+If we are adjusting a Gaussian of the form $a \exp \left[ \frac{(x-b)^2}{2c^2} \right] +
+d$ to the line, we may take the additive parameter $d$ as the continuum line and
+in this manner normalize each line.
+
+This method is vulnerable to the cases where lines are influenced by its
+neighbors (figure \ref{fig:additive_parameter}).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{normalization_with_d.pdf}
+  \caption{Pathological case for normalization with additive parameter}
+  \label{fig:additive_parameter}
+\end{figure}
+
+However, some of this cases may get caught automatically if we refine a
+tolerance in the estimated quality of the fit sufficiently well.
+
+\subsubsection{Normalization by limit estimation}
+\label{sec:norm2}
+
+An alternative approach may be to calculate the continuum by averaging the
+values of the spectra at the line extrema, normalizing the spectra locally
+before fitting.
+
+This shifts the source of uncertainty in the calculation from the quality of the
+fit to the estimation of the extrema. If the width of the lines is not predictable
+along the wavelength range limiting the line properly may be problematic.
+
 \subsection{Multiplet selection}
+\label{sec:multiplet_selection}
 
 The choice of multiplet used for comparison in temperature estimation (section
 \ref{sec:temp_estimation}) need carefully adhere to the conditions:
@@ -265,46 +348,152 @@ to growth curves of similar slope, as seen in figure
 \ref{fig:temp_estimation_sun}. For keeping under these orientations, a casuistic
 verification may be needed for optimal results.
 
+
+\subsection{Linear fit method for determining best synthetic spectra}
+
+As referenced in section \ref{sec:database_lookup}, the linear fitting method
+used to compare spectra is generally equivalent to a least squares algorithm.
+However, that is only true if we are able to compute $W$ of every synthetic
+line.
+
+In our algorithm, the number of fitted lines may vary from spectra to spectra.
+As such, employ a linear fitting method, evaluating the difference from unity slope in
+the plot $W_\text{synt}$ vs $W_\text{obs}$, because it is independent of the number of lines fitted.
+
+\section{Applications}
+
+\subsection{Iota Horologii (HD 17051)}
+\label{sec:star1}
+
+The application of our algorithm to HD 17051, a star of low rotational velocity,
+is immediate, as the observed spectrum used was previously normalized.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{temperature_estimation_star1.pdf}
+  \caption{HD 17051 - $T_\text{eff}$ estimation}
+  \label{fig:star1_temp_estimate}
+\end{figure}
+
+We get an estimate of the effective temperature of $T_\text{eff} = 6085K$, from
+the growth curves in figure \ref{fig:star1_temp_estimate}. \footnote{The
+  multiplets used do not strictly obey the conditions of listed in section
+  \ref{sec:multiplet_selection}, in the sense that we use a wide range of
+  wavelengths. This was used because using strictly two simple multiplets as
+  described would provide a small number of equivalent widths to compare.
+  This is a consequence of the size of our line database. Special attention was
+  used to guarantee that the growth curves behave as expected.}
+
+For this star, all observed lines could be fitted with our algorithm, which
+found the best fit in our database (\cite{laverny_ambre_2012}) listed in table
+\ref{tab:star1_params}, compared with measured parameters from \cite{suarez-andres_c/o_2018}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{best_fit_star1.pdf}
+  \caption{HD 17051 - Best fitting spectrum}
+  \label{fig:star1_best_fit}
+\end{figure}
+
+
+\begin{table}[h]
+  \label{tab:star1_params}
+  \centering
+  \begin{tabular}{c  c  c}
+    Parameters & Algorithm & Literature \\
+    \midrule
+    $T_\text{eff}$ (K) & 6000 & 6122 \\
+    $\log g$  & 4.5 & 4.37 \\
+    $Z$ & 0.25 & 0.17 \\
+    $a$ & 0.0 &  ---
+  \end{tabular}
+  \caption{HD 17051 - stellar parameters}
+\end{table}
+
+The chosen spectra may also be visually compared (see figure
+\ref{fig:star1_best_fit}). It is clear from visual comparison that not all
+lines are similar between the spectra. This, of course, is consequence of the
+coarse parameter space of the database, and of only using some lines for comparison.
+
+
+\subsection{24 G. Virginis (HD 104304)}
+\label{sec:star2}
+
+We now treat the case of HD 104304, an example of cooler object, with
+significant rotational velocity.
+
+Like before we estimate the temperature (figure \ref{fig:star2}) getting $T_\text{eff} =
+5415 K$ and the algorithm chooses the spectrum with parameters from table
+\ref{tab:star2_params} (comparison with \cite{aguilera-gomez_lithium_2018}).
+
+\begin{figure}
+  \subfigure{\includegraphics[width=.49\linewidth]{temperature_estimation_star2.pdf}}
+  \subfigure{\includegraphics[width=.49\linewidth]{best_fit_star2.pdf}}
+  \caption{HD 104304 temperature estimation and spectra comparison}
+  \label{fig:star2}
+\end{figure}
+
+\begin{table}
+  \label{tab:star2_params}
+  \centering
+  \begin{tabular}{c  c  c}
+    Parameters & Algorithm & Literature \\
+    \midrule
+    $T_\text{eff}$ (K) & 5250 & 5506 \\
+    $\log g$  & 4.5 & 4.42 \\
+    $Z$ & -0.25 & 0.31 \\
+    $a$ & 0.10 &  --- \\
+    $v \sin I$ (km$s^{-1}$) & 6.5 & 5.2
+  \end{tabular}
+  \caption{HD 104304 - stellar parameters}
+\end{table}
+
+The observed spectrum used in this case was not previously normalized, so we see
+a more significant error from the continuum estimation. The broadening of lines
+caused by the significant rotational velocity also causes this behavior. Our
+results are therefore a worse estimation of stellar parameters.
+
+\section{Possible improvements}
+\label{sec:improvements}
+
+The greatest improvement to this project would come from a refinement of the
+method used to estimate the local continuum of observed spectra.
+
+One way to go about doing this would be to consider a region around each line,
+determine the approximate location of all the lines (by computing the second and
+third derivatives of the spectra, for example), and employing multiple Gaussian
+fits to the region. This complete information about the line and its neighbors
+would allow for a much more precise measurement of the continuum value locally.
+
+This method, however, due to the need to estimate line locations (or indirectly,
+spectra derivatives) is much more sensible to noise, so a noise reduction
+algorithm would need to be implemented. For this reason, said approach lies
+beyond the scope of our algorithm, but is used by projects such as ARES (\cite{sousa_ares_2015}).
+
+Our results would also be improved by implementing a wider range of possible
+functional fits for spectral lines, such as Lorentzian or Voigt profiles. Due to
+the modular nature of the code, this would be a relatively straightforward implementation.
+
+Application wise, better results would be an immediate consequence of more
+extensive and parameterically dense line and spectra databases.
+
 %-------------------------------------------------------------------
 \section{Conclusions}
 
-   \begin{enumerate}
-      \item The conditions for the stability of static, radiative
-         layers in gas spheres, as described by Baker's (\citeyear{baker})
-         standard one-zone model, can be expressed as stability
-         equations of state. These stability equations of state depend
-         only on the local thermodynamic state of the layer.
-      \item If the constitutive relations -- equations of state and
-         Rosseland mean opacities -- are specified, the stability
-         equations of state can be evaluated without specifying
-         properties of the layer.
-      \item For solar composition gas the $\kappa$-mechanism is
-         working in the regions of the ice and dust features
-         in the opacities, the $\mathrm{H}_2$ dissociation and the
-         combined H, first He ionization zone, as
-         indicated by vibrational instability. These regions
-         of instability are much larger in extent and degree of
-         instability than the second He ionization zone
-         that drives the Cephe{\"\i}d pulsations.
-   \end{enumerate}
+\begin{itemize}
+\item An efficient algorithm was developed to determine stellar
+  parameters such as temperature, $\log g$ and metallicity from spectrocospic
+  analysis, by equivalent width comparison.
+\item The implementation was detailed and different methods discussed.
+\item Pathological cases were displayed and possible solutions and improvements were discussed.
+\item An effective application of the algorithm was showed and consequent
+  results discussed.
+\end{itemize}
 
 \begin{acknowledgements}
-      Part of this work was supported by the German
-      \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project
-      number Ts~17/2--1.
+  This work was done under the orientation of professor Jorge Gameiro in the
+  context of the curricular unit of Computational Astronomy.
 \end{acknowledgements}
-
-% WARNING
-%-------------------------------------------------------------------
-% Please note that we have included the references to the file aa.dem in
-% order to compile it, but we ask you to:
-%
-% - use BibTeX with the regular commands:
-%   \bibliographystyle{aa} % style aa.bst
-%   \bibliography{Yourfile} % your references Yourfile.bib
-%
-% - join the .bib files when you upload your source files
-%-------------------------------------------------------------------
 
 \bibliographystyle{aa}
 \bibliography{spectra}
