@@ -7,15 +7,15 @@ import scipy.optimize as opt
 plt.style.available
 plt.style.use('seaborn-paper')
 
-#obs_data = np.array(spt.read_obsfile("../estrelas_a_analisar/estrela1.fits"))
-obs_data = np.array(spt.read_obsfile("../estrelas_a_analisar/estrela2_vcor.fits"))
+obs_data = np.array(spt.read_obsfile("../estrelas_a_analisar/estrela1.fits"))
+#obs_data = np.array(spt.read_obsfile("../estrelas_a_analisar/estrela2_vcor.fits"))
 
 # Read FeI line library
 line_df = pd.read_csv("~/University/Comp_Astro/Project_1/line_list_tsantaki.dat", sep="\t")
 df = line_df[line_df.El.str.contains("FeI ")]
 wls, EP, lgf, EW = np.array(df["lambda"]), np.array(df["EP"]), np.array(df["loggf"]), np.array(df["EW"])
 
-obs_data=spt.limit_spec(obs_data, 5832, 6817)
+#obs_data=spt.limit_spec(obs_data, 5832, 6817)
 
 EP1 = [2.1, 2.3]
 EP2 = [4.6, 4.7]
@@ -63,7 +63,7 @@ plt.plot(x2, y2, "o", label="EP2 = [4.6, 4.7]")
 plt.plot(x1, p1[0]*x1 + p1[1], label="EP1 fit")
 plt.plot(x2, p2[0]*x2 + p2[1], label="EP2 fit")
 plt.legend()
-plt.title("HD 104304")
+plt.title("HD 17035")
 plt.xlabel(r"$\log \left( gf \lambda \right)$")
 plt.ylabel(r"$\log \left( \frac{W}{\lambda} \right)$")
 plt.show()

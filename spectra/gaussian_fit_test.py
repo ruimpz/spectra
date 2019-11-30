@@ -16,6 +16,7 @@ wls = wls[(wls > data[0][0]) & (wls < data[0][-1])]
 k = .25
 n = 31
 line = spt.limit_spec(data, wls[n]-k, wls[n]+k)
+fit = spt.get_
 
 plt.plot(line[0], line[1])
 plt.show()

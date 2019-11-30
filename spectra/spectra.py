@@ -99,6 +99,10 @@ def interp(obs_data, synt_data):
     return np.interp(obs_data[0], synt_data[0], synt_data[1])
 
 def get_rot_G(obs_data, v, mins, e = .6):
+    """Returns float
+
+    Returns rotational profile.
+    """
     x = np.linspace(-.5, .5, 1000)
     sun_limbo = np.array([.66, 1.162, 1.661])
     lm = np.mean((sun_limbo / mins))
@@ -109,7 +113,6 @@ def get_rot_G(obs_data, v, mins, e = .6):
 
 
 def process_spectra(l1, l2, obs_data, synt_data, wls, R, rotation=False):
-
     """Returns array.
 
     Takes observed and synthetic spectra and returns synthetic spectra after application of convolution with gaussian and interpolation with observed spectra data.
@@ -128,6 +131,10 @@ def process_spectra(l1, l2, obs_data, synt_data, wls, R, rotation=False):
 
 
 def limit_line(line, wl, k = .2):
+    """Returns array.
+    
+    Takes synthetic line and limits it to its extrema using derivatives.
+    """
     try:
         ind_min = line[1].argmin()
         wl_min = line[0, ind_min]
@@ -183,6 +190,16 @@ def get_W(data, wl_min, r_tol = 0.96, normed = True):
 
 
 def get_line_Ws(data, ws, k = .2, limit = False, get_inds = False, get_zeros=False, plot = False, count=False, normed=True):
+    """Returns arrays.
+
+    Takes spectra and wavelength list and returns equivalent widths. Options:
+    limit - automatically limit lines by derivative - only for synthetic spectra!
+    get_inds - returns indices where EW != 0
+    get_zeros - do not remove bad EW
+    plot - plot each line (debugging)
+    count - number of lines missed
+    normed - local normalization option
+    """
     W = np.zeros(len(ws))
     if plot:
         for i, wl in enumerate(ws):
@@ -252,6 +269,8 @@ def get_temp_range(T, delta_T=400):
 
 def read_library(library_path, Ts, logg_min = 3.5):
     """Returns list
+
+    Takes library path and temperature range and returns list of files in said range.
     """
     data = []
     for file in os.listdir(library_path):
@@ -259,7 +278,9 @@ def read_library(library_path, Ts, logg_min = 3.5):
             if file.startswith("p{}".format(T)):
                 data.append(file)
     return data
-
+"""
+Method of least squares comparison. Probably suboptimal. Use new method instead.
+"""
 #def get_spec_fit(library, wl_obs, W_obs, \
 #                 library_path="../library/GES_UVESRed580_deltaAlphaFe+0.0_fits/", \
 #                 lambda_file="../imagens_teste/GES_UVESRed580_Lambda.fits", k = .2):
@@ -299,6 +320,10 @@ def get_spec_fit(library, wl_obs, W_obs, \
 
 
 def get_fft_min(line, wl):
+    """ Returns 2-tuple.
+
+    Takes line and central wavelength, calculates FFT minima and returns tupple with average rotational velocity and array of frequency minima.
+    """
     c = 2.99e3
     min_freqs = np.zeros(3)
     sun_limbo = np.array([.66, 1.162, 1.661]) 
@@ -322,6 +347,10 @@ def get_fft_min(line, wl):
 
 
 def estimate_vsinI(obs_data, wls, k = .2):
+    """ Returns tupple
+
+    Takes spectra and wavelength list and returns average rotational velocity over all lines and average minima of FFT.
+    """
     vs = np.zeros(wls.size)
     minima = np.zeros((wls.size, 3))
     for i, wl in enumerate(wls):
