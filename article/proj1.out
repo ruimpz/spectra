@@ -1,0 +1,20 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Spectra Comparison}{}% 2
+\BOOKMARK [1][-]{section.3}{Method}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Equivalent width and Gaussian fit}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Temperature estimation}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Synthetic spectra database lookup and comparison}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{Synthetic spectra processing}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Fitting pathologies}{}% 8
+\BOOKMARK [2][-]{subsection.4.1}{Fitting lines - k parameter}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.2}{Variable initial conditions in Gaussian fits}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.3}{Continuum estimation}{section.4}% 11
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Normalizion with additive Gaussian parameter}{subsection.4.3}% 12
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Normalization by limit estimation}{subsection.4.3}% 13
+\BOOKMARK [2][-]{subsection.4.4}{Multiplet selection}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.5}{Linear fit method for determining best synthetic spectra}{section.4}% 15
+\BOOKMARK [1][-]{section.5}{Applications}{}% 16
+\BOOKMARK [2][-]{subsection.5.1}{Iota Horologii \(HD 17051\)}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.2}{24 G. Virginis \(HD 104304\)}{section.5}% 18
+\BOOKMARK [1][-]{section.6}{Possible improvements}{}% 19
+\BOOKMARK [1][-]{section.7}{Conclusions}{}% 20
