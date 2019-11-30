@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex proj1"] 1575154713 "proj1.aux" "proj1.bbl" "proj1" 1575154765
+["bibtex proj1"] 1575154713 "proj1.aux" "proj1.bbl" "proj1" 1575156999
   "/usr/share/texmf-dist/bibtex/bst/aa.bst" 1571244857 32103 296074362bd3e822c5209e1570c1d28f ""
-  "proj1.aux" 1575154764 8341 e369bfb5c6ce941884d7471b42b3dceb "pdflatex"
+  "proj1.aux" 1575156972 8341 e369bfb5c6ce941884d7471b42b3dceb "pdflatex"
   "spectra.bib" 1575153381 14969 d83d49f6eefca6bce670ca3ded5c8e1c ""
   (generated)
-  "proj1.blg"
   "proj1.bbl"
-["pdflatex"] 1575154763 "proj1.tex" "proj1.pdf" "proj1" 1575154765
+  "proj1.blg"
+["pdflatex"] 1575156971 "proj1.tex" "proj1.pdf" "proj1" 1575156999
   "../figures/bad_synth_broadening.pdf" 1574533071 15045 dcb902d3129b5ed0d4bea591e13db0df ""
   "../figures/bad_synth_overlap.pdf" 1574533164 14640 00cd305b710845d8d3e04dedb412bea1 ""
   "../figures/best_fit_star1.pdf" 1574973948 38022 c19bac7382e0b0dd7c93ec98fef2037d ""
@@ -149,10 +149,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1572595918 33301 a3134070eacafb10b1f371612ce2650d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1573863675 4572998 f9631eebba48c3ee98e5d310044b0a09 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1573863656 8044940 a4fa811d9c341a14b061a06d8c6ce1b9 ""
-  "proj1.aux" 1575154764 8341 e369bfb5c6ce941884d7471b42b3dceb "pdflatex"
+  "proj1.aux" 1575156972 8341 e369bfb5c6ce941884d7471b42b3dceb "pdflatex"
   "proj1.bbl" 1575154713 1403 baa04b6df10f1d5681910e4cc420856a "bibtex proj1"
-  "proj1.out" 1575154764 1441 23c443331007e76c43756030fdf59c1d "pdflatex"
-  "proj1.tex" 1575154763 21113 2aa9f95535e44ad6104086070de674e9 ""
+  "proj1.out" 1575156972 1441 23c443331007e76c43756030fdf59c1d "pdflatex"
+  "proj1.tex" 1575156969 21114 a1f5eb0976a8f768ece91891dfe86e11 ""
   (generated)
   "proj1.aux"
   "proj1.log"
