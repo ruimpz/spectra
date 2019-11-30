@@ -7,9 +7,6 @@ This is a simple python module designed to facilitate the comparison of spectra 
 ### Temperature estimationg
 ![image](figures/temperature_estimation_star1.png)
 
-### Gaussian fit
-![image](figures/line_fit.png)
-
 ### Spectra comparison
 ![image](figures/best_fit_star1.png)
 
@@ -25,4 +22,9 @@ This is a simple python module designed to facilitate the comparison of spectra 
 
  Project consists of module _spectra/spectra.py_ along with examples and applications of the code in _spectra_. Everything else are databases and example spectra compatible with the code developed.
 
+## Tips
+
+- Database files need to be properly formatted. To use the default function, files should have only 1 header line with column names to be read by _pandas_ module with correct names.
+
+Questions and feedback are welcome!
 
