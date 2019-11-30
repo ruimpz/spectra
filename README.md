@@ -24,6 +24,7 @@ This is a simple python module designed to facilitate the comparison of spectra 
 
 ## Tips
 
+- All functions are properly commented. Use it information on each one.
 - Database files need to be properly formatted. To use the default function, files should have only 1 header line with column names to be read by _pandas_ module with correct names.
 
 Questions and feedback are welcome!
